@@ -1,4 +1,4 @@
-package org.prashant.messenger;
+package org.prashant.messenger.resources;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

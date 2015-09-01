@@ -1,4 +1,4 @@
-package org.prashant.messenger;
+package org.prashant.messenger.resources;
 
 import java.util.ArrayList;
 
@@ -6,7 +6,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 import org.prashant.messenger.model.Message;
-import org.prashant.messenger.model.MessageService;
+import org.prashant.messenger.service.MessageService;
 
 @Path("/messages")
 @Produces(MediaType.APPLICATION_JSON)
@@ -16,7 +16,7 @@ public class MessageResource {
 	MessageService ms = new MessageService();
 	
 	@GET
-	public ArrayList<Message> getAllMessage()
+	public ArrayList<Message> getAllMessages()
 	{
 		return ms.getAllMessages();
 	}
@@ -53,7 +53,8 @@ public class MessageResource {
 
 	public Message editMessage(@PathParam("messageId") int messageId, Message message)
 	{
-		return ms.editMessage(messageId, message);
+		message.setId(messageId);
+		return ms.editMessage(message);
 	}
 	
 	@DELETE

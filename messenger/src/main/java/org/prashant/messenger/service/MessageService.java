@@ -1,8 +1,9 @@
-package org.prashant.messenger.model;
+package org.prashant.messenger.service;
 
 import java.util.*;
 
 import org.prashant.messenger.database.MyDatabase;
+import org.prashant.messenger.model.Message;
 
 public class MessageService {
 	
@@ -35,10 +36,9 @@ public class MessageService {
 		return messages.size();
 	}
 	
-	public Message editMessage(int messageId, Message message)
+	public Message editMessage(Message message)
 	{
-		message.setId(messageId);
-		messages.put(messageId, message);
+		messages.put(message.getId(), message);
 		return message;
 	}
 	
