@@ -1,6 +1,7 @@
 package org.prashant.messenger.service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.prashant.messenger.database.MyDatabase;
 import org.prashant.messenger.model.Message;
@@ -18,6 +19,18 @@ public class MessageService {
 	public ArrayList<Message> getAllMessages()
 	{
 		return new ArrayList<Message>(messages.values());
+	}
+	public ArrayList<Message> getAllMessages(String authorName)
+	{
+		ArrayList<Message> finalList = new ArrayList<Message>();
+		ArrayList<Message> al = new ArrayList<Message>(messages.values());
+		for(Message m : al)
+		{
+			if(m.getAuthor().equals(authorName))
+				finalList.add(m);
+				
+		}
+		return finalList;
 	}
 	public Message getMessage(int id)
 	{

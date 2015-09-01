@@ -3,7 +3,7 @@ package org.prashant.messenger.resources;
 import java.util.ArrayList;
 
 import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.*;
 
 import org.prashant.messenger.model.Message;
 import org.prashant.messenger.service.MessageService;
@@ -16,9 +16,12 @@ public class MessageResource {
 	MessageService ms = new MessageService();
 	
 	@GET
-	public ArrayList<Message> getAllMessages()
+	public ArrayList<Message> getAllMessages(@QueryParam("author") String authorName)
 	{
-		return ms.getAllMessages();
+		if(authorName!=null)
+			return ms.getAllMessages(authorName);
+		else
+			return ms.getAllMessages();
 	}
 	
 	@GET
@@ -43,9 +46,13 @@ public class MessageResource {
 	
 	
 	@POST
-	public Message addMessage(Message message)
-	{
-		return ms.addMessage(message);
+	public Response addMessage(@Context UriInfo urinfo, Message message)
+ {
+		Message finalMessage = ms.addMessage(message);
+		return Response.created(urinfo.getAbsolutePathBuilder().path(String.valueOf(finalMessage.getId())).build())
+				.entity(finalMessage).build();
+
+		// return ms.addMessage(message);
 	}
 	
 	@PUT
@@ -62,5 +69,11 @@ public class MessageResource {
 	public void deleteMessage(@PathParam("messageId") int messageId)
 	{
 		ms.deleteMessage(messageId);
+	}
+	
+	@Path("/{messageId}/comments")
+	public CommentResource getCommentResource()
+	{
+		return new CommentResource();
 	}
 }
