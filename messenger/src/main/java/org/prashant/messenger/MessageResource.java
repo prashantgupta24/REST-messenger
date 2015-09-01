@@ -9,12 +9,13 @@ import org.prashant.messenger.model.Message;
 import org.prashant.messenger.model.MessageService;
 
 @Path("/messages")
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 public class MessageResource {
 
 	MessageService ms = new MessageService();
 	
 	@GET
-	@Produces(MediaType.APPLICATION_XML)
 	public ArrayList<Message> getAllMessage()
 	{
 		return ms.getAllMessages();
@@ -22,13 +23,11 @@ public class MessageResource {
 	
 	@GET
 	@Path("/{messageID}")
-	@Produces(MediaType.APPLICATION_JSON)
 	public Message getMessage(@PathParam("messageID") int messageID)
 	{
 		Message message = ms.getMessage(messageID);
 		if(message !=null)
 		{
-			System.out.println("message got!"+message.getMessage());
 			return message;
 		}
 		else
@@ -37,9 +36,30 @@ public class MessageResource {
 	
 	@GET
 	@Path("/test")
-	@Produces(MediaType.TEXT_PLAIN)
 	public String getMessage()
 	{
 		return new String("Adf");
+	}
+	
+	
+	@POST
+	public Message addMessage(Message message)
+	{
+		return ms.addMessage(message);
+	}
+	
+	@PUT
+	@Path("/{messageId}")
+
+	public Message editMessage(@PathParam("messageId") int messageId, Message message)
+	{
+		return ms.editMessage(messageId, message);
+	}
+	
+	@DELETE
+	@Path("/{messageId}")
+	public void deleteMessage(@PathParam("messageId") int messageId)
+	{
+		ms.deleteMessage(messageId);
 	}
 }

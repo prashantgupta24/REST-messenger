@@ -10,7 +10,8 @@ public class MessageService {
 	
 	public MessageService()
 	{
-		messages.put(1, new Message(1,"adfasdfasgdf asdgfaskdgf jasgf ajsgfaskjdfgsadkjfg"));
+		messages.put(1, new Message(1,"First message", "Prashant"));
+		messages.put(2, new Message(2,"Second message", "Testing"));
 	}
 
 	public ArrayList<Message> getAllMessages()
@@ -21,9 +22,28 @@ public class MessageService {
 	{
 		return messages.get(id);
 	}
-	public void addMessage(String message)
+	public Message addMessage(Message message)
 	{
-		Message m = new Message(messages.size()+1, message);
-		messages.put(messages.size()+1, m);
+		message.setId(messages.size()+1);
+		//Message m = new Message(messages.size()+1, message.getMessage());
+		messages.put(messages.size()+1, message);
+		return message;
+	}
+	
+	public int getMessageCount()
+	{
+		return messages.size();
+	}
+	
+	public Message editMessage(int messageId, Message message)
+	{
+		message.setId(messageId);
+		messages.put(messageId, message);
+		return message;
+	}
+	
+	public void deleteMessage(int messageId)
+	{
+		messages.remove(messageId);
 	}
 }
