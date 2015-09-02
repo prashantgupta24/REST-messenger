@@ -9,7 +9,7 @@ import org.prashant.messenger.model.Profile;
 import org.prashant.messenger.service.ProfileService;
 
 @Path("/profiles")
-@Produces(MediaType.APPLICATION_JSON)
+@Produces(value = {MediaType.APPLICATION_JSON, MediaType.TEXT_XML})
 @Consumes(MediaType.APPLICATION_JSON)
 public class ProfileResource {
 

@@ -1,5 +1,7 @@
 package org.prashant.messenger.model;
 
+import java.util.ArrayList;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
@@ -8,6 +10,7 @@ public class Message {
 	private int id;
 	private String message;
 	private String author;
+	private ArrayList<Link> links = new ArrayList<Link>();
 	
 	public Message()
 	{
@@ -42,6 +45,13 @@ public class Message {
 		this.author = author;
 	}
 
-	
+	public ArrayList<Link> getLinks() {
+		return links;
+	}
+
+	public void setLinks(ArrayList<Link> links) {
+		this.links = links;
+	}
+
 
 }
